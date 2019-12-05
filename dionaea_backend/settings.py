@@ -84,11 +84,12 @@ WSGI_APPLICATION = 'dionaea_backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'HOST': os.environ.get('MONGODB_URI', 'localhost')
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     },
 }
 
-mongoengine.connect(db='dionaea', host=os.environ['MONGODB_URI'])
+mongoengine.connect(db='dionaea', host=os.environ.get('MONGODB_URI', 'localhost'))
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
