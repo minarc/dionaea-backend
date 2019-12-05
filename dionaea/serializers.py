@@ -2,6 +2,7 @@ from dionaea.models import Trap
 from rest_framework_mongoengine import serializers
 
 import hashlib
+import os
 
 
 class TrapSerializer(serializers.DocumentSerializer):
@@ -10,7 +11,7 @@ class TrapSerializer(serializers.DocumentSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
-        salt = "4[pSLc9;8Z76+ghe;(8nrkWXj~$"
+        salt = os.environ['DJANGO_SECRET_KEY']
         key = hashlib.sha256(f"{validated_data['target_url']}{salt}".encode('utf-8'))
         validated_data['shorten_key'] = key.hexdigest()
 

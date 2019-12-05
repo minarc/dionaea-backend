@@ -1,6 +1,6 @@
 from rest_framework.decorators import authentication_classes, permission_classes, api_view, action
 from rest_framework.response import Response
-from rest_framework.views import APIView
+from rest_framework.renderers import JSONRenderer
 from rest_framework_mongoengine import viewsets
 
 from dionaea.serializers import TrapSerializer
@@ -19,8 +19,23 @@ class TrapViewSet(viewsets.ModelViewSet):
 
 
 @api_view(['GET'])
-def trap(request):
-    return Response({"message": "get"})
+def trap_list(request):
+    traps = Trap.objects.all()
+    serializer = TrapSerializer(traps, many=True)
+    print(request.META['HTTP_USER_AGENT'])
+    print(request.META['REMOTE_ADDR'])
+
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def trap_detail(request, shorten_key):
+    traps = Trap.objects.get(shorten_key)
+    serializer = TrapSerializer(traps)
+
+    print(request)
+
+    return Response(serializer.data)
 
 
 @permission_classes((IsAuthenticated,))

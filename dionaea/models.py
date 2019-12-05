@@ -10,9 +10,9 @@ class User(EmbeddedDocument):
 
 
 class Trap(Document):
-    created_at = fields.DateTimeField(default=datetime.datetime.now, editable=False)
+    created_at = fields.DateTimeField(default=datetime.datetime.now)
     shorten_key = fields.StringField(primary_key=True, max_length=96)
-    target_url = fields.URLField(required=True)
+    target_url = fields.URLField()
     memo = fields.StringField()
     expire = fields.DateTimeField()
     users = fields.ListField(fields.EmbeddedDocumentField(User))
