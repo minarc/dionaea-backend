@@ -4,7 +4,9 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework_mongoengine import viewsets
 
 from dionaea.serializers import TrapSerializer
+from dionaea.serializers import TestSerializer
 from dionaea.models import Trap
+from dionaea.models import Test
 
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
@@ -16,6 +18,12 @@ class TrapViewSet(viewsets.ModelViewSet):
     lookup_field = 'shorten_key'
     queryset = Trap.objects.all().order_by('-created_at')
     serializer_class = TrapSerializer
+
+
+class TestViewSet(viewsets.ModelViewSet):
+    lookup_field = 'id'
+    queryset = Test.objects.all()
+    serializer_class = TestSerializer
 
 
 @api_view(['GET'])

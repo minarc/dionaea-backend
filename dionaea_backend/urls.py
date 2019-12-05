@@ -18,10 +18,12 @@ from django.urls import re_path, include
 from rest_framework.routers import SimpleRouter
 from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token, refresh_jwt_token
 from dionaea.views import TrapViewSet
+from dionaea.views import TestViewSet
 from dionaea.views import trap_list
 
 router = SimpleRouter()
 router.register('trap', TrapViewSet, 'trap')
+router.register('test', TestViewSet, 'test')
 
 urlpatterns = [
     re_path('admin/', admin.site.urls),
