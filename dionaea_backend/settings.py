@@ -88,7 +88,7 @@ DATABASES = {
     },
 }
 
-mongoengine.connect(db='dionaea', host='localhost')
+mongoengine.connect(db='dionaea', host=os.environ['MONGODB_URI'])
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
