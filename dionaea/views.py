@@ -1,6 +1,5 @@
 from rest_framework.decorators import authentication_classes, permission_classes, api_view, action
 from rest_framework.response import Response
-from rest_framework.renderers import JSONRenderer
 from rest_framework_mongoengine import viewsets
 
 from dionaea.serializers import TrapSerializer
@@ -21,17 +20,29 @@ class TrapViewSet(viewsets.ModelViewSet):
 
 
 class TestViewSet(viewsets.ModelViewSet):
-    lookup_field = 'id'
+    lookup_field = 'shorten_key'
     queryset = Test.objects.all()
     serializer_class = TestSerializer
+
+    def retrieve(self, request, *args, **kwargs):
+        queryset = Test.objects.filter(shorten_key=self.kwargs['shorten_key'])
+        serializer = self.get_serializer(queryset, many=True)
+
+        return Response(data=serializer.data)
+
+
+@api_view(['GET'])
+def test_list(request):
+    tests = Test.objects.all()
+    serializer = TestSerializer(tests, many=True)
+
+    return Response(serializer.data)
 
 
 @api_view(['GET'])
 def trap_list(request):
     traps = Trap.objects.all()
     serializer = TrapSerializer(traps, many=True)
-    print(request.META['HTTP_USER_AGENT'])
-    print(request.META['REMOTE_ADDR'])
 
     return Response(serializer.data)
 
@@ -40,8 +51,6 @@ def trap_list(request):
 def trap_detail(request, shorten_key):
     traps = Trap.objects.get(shorten_key)
     serializer = TrapSerializer(traps)
-
-    print(request)
 
     return Response(serializer.data)
 

@@ -4,6 +4,8 @@ from rest_framework_mongoengine import serializers
 
 import uuid
 import os
+import requests
+import json
 
 
 class TrapSerializer(serializers.DocumentSerializer):
@@ -22,3 +24,14 @@ class TestSerializer(serializers.DocumentSerializer):
     class Meta:
         model = Test
         fields = '__all__'
+
+    def create(self, validated_data):
+        url = f"https://freegeoip.app/json/{validated_data['ip_address']}"
+        response = requests.request("GET", url)
+        response = json.loads(response.content)
+
+        validated_data['geo_point'] = [response['latitude'], response['longitude']]
+        validated_data['region_name'] = response['region_name']
+        validated_data['city'] = response['city']
+
+        return Test.objects.create(**validated_data)

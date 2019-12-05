@@ -23,13 +23,15 @@ from dionaea.views import trap_list
 
 router = SimpleRouter()
 router.register('trap', TrapViewSet, 'trap')
-router.register('test', TestViewSet, 'test')
+
+test = SimpleRouter()
+test.register('test', TestViewSet, 'test')
 
 urlpatterns = [
     re_path('admin/', admin.site.urls),
     re_path(r'^api/v[1-9]/', include(router.urls)),
 
-    re_path(r'^api/trap/', trap_list),
+    re_path(r'^api/v[1-9]/', include(test.urls)),
 
     re_path(r'^api/v[1-9]/jwt/', obtain_jwt_token),
     re_path(r'^api/v[1-9]/jwt/verify/', verify_jwt_token),
