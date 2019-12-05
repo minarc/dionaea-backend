@@ -5,4 +5,4 @@ whitenoise
 django-rest-framework-mongoengine
 djangorestframework
 mongoengine
-django-cors-headers
+djangorestframework-jwt
