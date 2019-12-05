@@ -6,3 +6,4 @@ django-rest-framework-mongoengine
 djangorestframework
 mongoengine
 djangorestframework-jwt
+django-cors-headers
