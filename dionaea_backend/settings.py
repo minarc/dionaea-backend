@@ -56,7 +56,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_WHITELIST = [
-    "https://dionaeatrap.herokuapp.com",
+    "https://dionaea-trap.herokuapp.com",
 ]
 
 ROOT_URLCONF = 'dionaea_backend.urls'
