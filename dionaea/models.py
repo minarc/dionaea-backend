@@ -1,7 +1,6 @@
 import datetime
 
 from mongoengine import Document, fields, EmbeddedDocument
-from djongo import models
 
 
 class Prey(Document):
