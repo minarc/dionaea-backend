@@ -1,11 +1,21 @@
-from dionaea.models import Trap
-from dionaea.models import Test
+from dionaea.models import Maker, Test, Prey, Trap
 from rest_framework_mongoengine import serializers
 
-import uuid
-import os
 import requests
 import json
+import nanoid
+
+
+class MakerSerializer(serializers.DocumentSerializer):
+    class Meta:
+        model = Maker
+        fields = '__all__'
+
+
+class TestSerializer(serializers.EmbeddedDocumentSerializer):
+    class Meta:
+        model = Test
+        fields = '__all__'
 
 
 class TrapSerializer(serializers.DocumentSerializer):
@@ -14,15 +24,14 @@ class TrapSerializer(serializers.DocumentSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
-        name = f"{validated_data['target_url']}{os.environ['DJANGO_SECRET_KEY']}"
-        validated_data['shorten_key'] = str(uuid.uuid5(namespace=uuid.NAMESPACE_URL, name=name).hex)
+        validated_data['shorten_key'] = nanoid.generate(size=8)
 
         return Trap.objects.create(**validated_data)
 
 
-class TestSerializer(serializers.DocumentSerializer):
+class PreySerializer(serializers.DocumentSerializer):
     class Meta:
-        model = Test
+        model = Prey
         fields = '__all__'
 
     def create(self, validated_data):
@@ -34,4 +43,4 @@ class TestSerializer(serializers.DocumentSerializer):
         validated_data['region_name'] = response['region_name']
         validated_data['city'] = response['city']
 
-        return Test.objects.create(**validated_data)
+        return Prey.objects.create(**validated_data)

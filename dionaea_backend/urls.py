@@ -15,23 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import re_path, include
-from rest_framework.routers import SimpleRouter
+from rest_framework.routers import DefaultRouter
 from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token, refresh_jwt_token
-from dionaea.views import TrapViewSet
-from dionaea.views import TestViewSet
-from dionaea.views import trap_list
+from dionaea.views import TrapViewSet, MakerViewSet, PreyViewSet
 
-router = SimpleRouter()
+router = DefaultRouter()
 router.register('trap', TrapViewSet, 'trap')
-
-test = SimpleRouter()
-test.register('test', TestViewSet, 'test')
+router.register('prey', PreyViewSet, 'prey')
+router.register('maker', MakerViewSet, 'maker')
 
 urlpatterns = [
     re_path('admin/', admin.site.urls),
     re_path(r'^api/v[1-9]/', include(router.urls)),
-
-    re_path(r'^api/v[1-9]/', include(test.urls)),
 
     re_path(r'^api/v[1-9]/jwt/', obtain_jwt_token),
     re_path(r'^api/v[1-9]/jwt/verify/', verify_jwt_token),

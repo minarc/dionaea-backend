@@ -34,8 +34,11 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'dionaea-backend.herokuapp.com']
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
-    'django.contrib.contenttypes',
     'django.contrib.sessions',
+    # 'django.contrib.admin',
+    # 'django.contrib.auth',
+    'django.contrib.contenttypes',
+    # 'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
@@ -56,7 +59,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_WHITELIST = [
-    "https://dionaea-trap.herokuapp.com",
+    "https://dionaea-trap.herokuapp.com", "http://localhost:8080"
 ]
 
 ROOT_URLCONF = 'dionaea_backend.urls'
@@ -84,8 +87,10 @@ WSGI_APPLICATION = 'dionaea_backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'djongo',
+        'NAME': 'dionaea',
+        'HOST': 'localhost'
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     },
 }
 
