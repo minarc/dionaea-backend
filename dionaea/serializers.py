@@ -1,4 +1,4 @@
-from dionaea.models import Maker, Test, Prey, Trap
+from dionaea.models import Maker, Prey, Trap
 from rest_framework_mongoengine import serializers
 
 import requests
@@ -9,12 +9,6 @@ import nanoid
 class MakerSerializer(serializers.DocumentSerializer):
     class Meta:
         model = Maker
-        fields = '__all__'
-
-
-class TestSerializer(serializers.EmbeddedDocumentSerializer):
-    class Meta:
-        model = Test
         fields = '__all__'
 
 

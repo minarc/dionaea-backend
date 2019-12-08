@@ -12,3 +12,4 @@ mongoengine==0.18.2
 urllib3
 requests
 nanoid
+django-redis
