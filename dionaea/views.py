@@ -16,6 +16,7 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 # @authentication_classes((JSONWebTokenAuthentication,))
 # @permission_classes((IsAuthenticated,))
+@throttle_classes([UserRateThrottle])
 class TrapViewSet(viewsets.ModelViewSet):
     lookup_field = 'shorten_key'
     queryset = Trap.objects.all().order_by('-created_at')
@@ -35,7 +36,7 @@ class TrapViewSet(viewsets.ModelViewSet):
 
 # @authentication_classes((JSONWebTokenAuthentication,))
 # @permission_classes((IsAuthenticated,))
-@api_view(['GET'])
+# @api_view(['GET'])
 # @throttle_classes([UserRateThrottle])
 def prey_retrieve(request):
     queryset = Prey.objects.filter(shorten_key='test')
