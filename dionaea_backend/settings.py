@@ -31,7 +31,7 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'dionaea-backend.herokuapp.com']
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://localhost',
+        'LOCATION': os.environ['REDISCLOUD_URL'],
         'OPTIONS': {
             'CLIENT_CLASS': "django_redis.client.DefaultClient"
         }
