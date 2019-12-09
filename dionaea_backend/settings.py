@@ -64,7 +64,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_WHITELIST = [
-    "https://dionaea-trap.herokuapp.com", "http://localhost:8080"
+    "https://dionaea-trap.herokuapp.com", "http://localhost:8080", "https://dionaea.arfrumo.codes"
 ]
 
 ROOT_URLCONF = 'dionaea_backend.urls'
