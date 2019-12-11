@@ -1,3 +1,5 @@
+import time
+
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
